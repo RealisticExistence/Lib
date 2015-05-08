@@ -1,0 +1,30 @@
+package main;
+
+
+import java.awt.Color;
+import java.awt.Font;
+
+import net.lib.frame.window.Content;
+import net.lib.frame.window.Window;
+
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Window w = new Window();
+		w.enableThis(true);
+		Content c = new Content(w);
+		w.addContent(c);
+		c.setBackground(Color.BLUE);
+		c.drawText("Libreria", 800, 500);
+		c.setFont(new Font("frfrf",Font.ITALIC,100));
+		c.setColor(Color.red);
+		c.moveText("Libreria", 20, 20, 0);
+		c.moveText("Libreria", 200, 200, 0);
+	}
+
+}

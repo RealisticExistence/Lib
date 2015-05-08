@@ -1,0 +1,33 @@
+package main;
+
+
+import java.awt.Color;
+import java.awt.Font;
+
+import net.lib.frame.window.Content;
+import net.lib.frame.window.Window;
+
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	final Window w = new Window();
+	w.enableThis(true);
+	final Content c = new Content(w);
+	w.addContent(c);
+	c.drawText("Hola", 100, 100);
+	c.setFont(new Font("whww",Font.ITALIC, 100));
+	c.setColor(Color.RED);
+	
+		
+	c.moveText("Hola", 100, 100, 100);
+
+
+
+	}
+
+}

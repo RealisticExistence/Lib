@@ -1,0 +1,10 @@
+22:43:31 **** Incremental Build of configuration Debug for project HelloWorld ****
+make all 
+Building file: ../src/HelloWorld.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/HelloWorld.d" -MT"src/HelloWorld.d" -o "src/HelloWorld.o" "../src/HelloWorld.cpp"
+/bin/sh: 1: g++: not found
+make: *** [src/HelloWorld.o] Error 127
+
+22:43:31 Build Finished (took 65ms)
+

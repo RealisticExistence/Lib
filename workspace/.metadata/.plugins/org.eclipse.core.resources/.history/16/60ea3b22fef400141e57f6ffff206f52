@@ -1,0 +1,31 @@
+package main;
+
+
+import java.awt.Color;
+import java.awt.Font;
+
+import net.lib.frame.window.Content;
+import net.lib.frame.window.Img;
+import net.lib.frame.window.Window;
+
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	final Window w = new Window();
+	w.enableThis(true);
+	final Content c = new Content(w);
+	w.addContent(c);
+	Img img = new Img("C:\\home\\jorgeht\\Imágenes\\Dados.png");
+	c.drawImage(img, 100, 100);
+	
+	//c.getVectorText("Hola");
+
+
+	}
+
+}

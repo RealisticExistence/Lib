@@ -1,0 +1,49 @@
+package main;
+
+
+import java.awt.Color;
+import java.awt.Font;
+
+import net.lib.frame.window.Content;
+import net.lib.frame.window.Window;
+
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Window w = new Window();
+		w.enableThis(true);
+		final Content c = new Content(w);
+		w.addContent(c);
+		c.setBackground(Color.BLUE);
+		c.drawText("Libreria", 800, 500);
+		c.setFont(new Font("frfrf",Font.ITALIC,100));
+		c.setColor(Color.red);
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				int cuenta = 0;
+				while(cuenta < 1000){
+					cuenta++;
+					c.moveText("Libreria", cuenta, cuenta, 0);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+				
+			}
+		});
+		t.start();
+		
+	}
+
+}

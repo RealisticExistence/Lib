@@ -1,0 +1,25 @@
+package main;
+
+
+import java.awt.Font;
+
+import net.lib.frame.window.Content;
+import net.lib.frame.window.Window;
+
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Window w = new Window();
+		w.enableThis(true);
+		Content c = new Content(w);
+		w.addContent(c);
+		c.drawText("hola", 100, 100);
+		c.setFont(new Font("frfrf",Font.ITALIC,10));
+	}
+
+}

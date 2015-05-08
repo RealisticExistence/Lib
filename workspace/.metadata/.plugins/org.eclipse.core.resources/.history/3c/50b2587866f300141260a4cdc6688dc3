@@ -1,0 +1,34 @@
+package net.lib.frame.window;
+
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
+public class Content extends JPanel{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -706790674959951203L;
+	String s = "";
+	int x = 0;
+	int y = 0;
+
+	public void drawText(String s, int x, int y){
+		this.x = x;
+		this.y = y;
+		this.s = s;
+		repaint();
+
+
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		g.drawString(s, x, y);
+		super.paint(g);
+	}
+
+
+
+
+}

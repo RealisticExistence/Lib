@@ -1,0 +1,81 @@
+package net.lib.frame.window;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.List;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
+
+public class Content extends JPanel{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -706790674959951203L;
+	String s = "";
+	ArrayList<String> strings = new ArrayList<String>();
+	int x = 0;
+	int y = 0;
+	Font f = null;
+	Color c = null;
+	public Content(Window w){
+		setSize(w.getWidth(), w.getHeight());
+		setVisible(true);
+	}
+	public void drawText(String s, int x, int y){
+		this.x = x;
+		this.y = y;
+		this.s = s;
+		strings.add(s);
+		repaint();
+
+
+	}
+	public void moveText(String s, int x, int y, int speed){
+		if(strings.contains(s)){
+			this.x = x;
+			this.y = y;
+			Thread t = new Thread
+			repaint();
+		}
+
+	}
+	public int getXText(String s){
+		if(strings.contains(s)){
+		return x;
+		}
+		return 0;
+
+	}
+	public int getYText(String s){
+		if(strings.contains(s)){
+		return y;
+		}
+		return 0;
+
+	}
+	public void setFont(Font f){
+		this.f = f;
+	}
+	public void setColor(Color c){
+		this.c = c;
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		if(f != null){
+			g.setFont(f);
+		}
+		if(c != null){
+			g.setColor(c);
+		}
+		g.drawString(s, x, y);
+	}
+
+
+
+
+}
