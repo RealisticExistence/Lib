@@ -1,0 +1,28 @@
+package main;
+
+
+import net.lib.content.Content;
+import net.lib.frame.window.Img;
+import net.lib.frame.window.Window;
+
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	Window w = new Window();
+	w.enableThis(true);
+	Content c = new Content(w);
+	w.addContent(c);
+	c.drawText("Hola", 1000, 1000);
+	c.moveText("Hola", 100, 100, 10);
+	
+	//c.getVectorText("Hola");
+
+
+	}
+
+}

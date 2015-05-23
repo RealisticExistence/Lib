@@ -1,17 +1,9 @@
 package main;
 
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import net.lib.frame.window.Content;
-import net.lib.frame.window.Img;
-import net.lib.frame.window.Window;
+import net.tpdl.lib.content.Content;
+import net.tpdl.lib.frame.Window;
+import net.tpdl.lib.img.Img;
 
 
 
@@ -21,18 +13,16 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-	final Window w = new Window();
+	Window w = new Window();
 	w.enableThis(true);
-	final Content c = new Content(w);
+	Content c = new Content(w);
 	w.addContent(c);
-	Img img = null;
-	img = new Img("C:\\Users\\JorgeHT\\Pictures\\Dados.png");
-	c.drawImg(img, 100, 100);
-	img.setHeight(100);
-	img.setWidth(100);
-	c.moveImg(img, 1000, 1000, 10);
-	
-	//c.getVectorText("Hola");
+	Img img1 = new Img("C:\\Users\\Alumno\\Pictures\\Dados.png",1000, 1000);
+	Img img2 = new Img("C:\\Users\\Alumno\\Pictures\\Dados.png",1000, 1000);
+	c.drawImg(img1,1000,1000);
+	c.drawImg(img2, 1000, 1000);
+	c.moveImg(img1, 100, 100, 100);
+	c.moveImg(img2, 1300, 100, 100);
 
 
 	}

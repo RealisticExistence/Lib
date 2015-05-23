@@ -1,0 +1,231 @@
+package net.lib.content;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
+import net.lib.frame.window.Img;
+import net.lib.frame.window.Window;
+
+
+public class Content extends JPanel{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -706790674959951203L;
+	String s = "";
+	ArrayList<String> strings = new ArrayList<String>();
+	ArrayList<Img> Imgs = new ArrayList<Img>();
+
+	double x = 0;
+	int Imgx = 0;
+	int Imgy = 0;
+	net.lib.frame.window.Img Img = null;
+	double y = 0;
+	Font f = null;
+	Color c = null;
+	public Content(Window w){
+		setSize(w.getWidth(), w.getHeight());
+		setVisible(true);
+	}
+
+
+
+
+
+	////////////////////////Text Methods/////////////////////
+	public void drawText(String s, int x, int y){
+		this.x = x;
+		this.y = y;
+		this.s = s;
+		strings.add(s);
+		repaint();
+
+
+
+	}
+	/*
+	public void getVectorText(String text){
+		if(strings.contains(text)){
+
+
+
+		}
+
+
+	}
+	*/
+	public void moveText(final String s, final int x2, final int y2, final float speed){
+		if(strings.contains(s)){
+			Thread t = new Thread(new Runnable() {
+
+
+				
+				@Override
+				public void run() {
+					
+					double distX = x2-x;
+					double distY = y2-y;
+					double mod = Math.sqrt(distX*distX + distY*distY);
+					
+					distX /= mod;
+					distY /= mod;
+					while(mod > speed){
+						
+						x = (x + distX*speed/100);
+						y =  (y + distY*speed/100);
+						
+						try {
+							Thread.sleep(10);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						repaint();
+						double distX2 = x2-x;
+						double distY2 = y2-y;
+						mod = Math.sqrt(distX2*distX2 + distY2*distY2);
+					}
+
+
+				}
+			});
+			t.start();
+		}
+
+	}
+	public double getXText(String s){
+		if(strings.contains(s)){
+			return x;
+		}
+		return 0;
+
+	}
+	public double getYText(String s){
+		if(strings.contains(s)){
+			return y;
+		}
+		return 0;
+
+	}
+	public void setFont(Font f){
+		this.f = f;
+	}
+
+	public void setColor(Color c){
+		this.c = c;
+	}
+
+
+
+
+
+
+//////////////Img Methods////////////////////
+	public double getXImg(Img Img){
+		if(Imgs.contains(Img)){
+			return x;
+		}
+		return 0;
+
+	}
+	public double getYImg(Img Img){
+		if(Imgs.contains(Img)){
+			return y;
+		}
+		return 0;
+
+	}
+	public void drawImg(Img Img, int x, int y){
+		this.Img = Img;
+		this.Imgx = x;
+		this.Imgy = y;
+		Imgs.add(Img);
+		repaint();
+
+	}
+	public void moveImg(final Img Img, final int x2, final int y2, final int speed){
+		if(Imgs.contains(Img)){
+			Thread t = new Thread(new Runnable() {
+
+
+
+				@Override
+				public void run() {
+					int newX = 0;
+					if(x2 > Imgx){
+						newX = x2-Imgx;
+					}
+					else if(x2 < Imgx){
+						newX = Imgx-x2;
+
+					}
+					int newY = 0;
+					if(y2 > Imgy){
+						newY = y2-Imgy;
+					}
+					else if(y2 < Imgy){
+						newY = Imgy-y2;
+
+
+					}
+/*
+
+					for(int x3 = x; x3 < newX; x3++){
+						for(int y3 = y; y3 < newY; y3++){
+							repaint();
+							Imgx++;
+							Imgy++;
+							try {
+								Thread.sleep(speed);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+
+
+						}
+
+
+					}
+*/
+
+				}
+			});
+			t.start();
+		}
+///////////////////////Key Methods///////////////////
+		
+		
+	}
+
+
+
+
+
+
+///////////////////////Paint////////////////////////
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		if(f != null){
+			g.setFont(f);
+		}
+		if(c != null){
+			g.setColor(c);
+		}
+		g.drawString(s, (int)x, (int)y);
+		if(Img != null){
+			g.drawImage(Img.getImage(), Imgx, Imgy, null);
+		}
+	}
+
+
+
+
+}
