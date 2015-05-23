@@ -1,0 +1,16 @@
+package net.tpdl.lib.point;
+
+public class Point {
+	public float x;
+	public float y;
+	
+	
+	
+	public Point(){
+		
+	}
+	
+	
+	
+	
+}

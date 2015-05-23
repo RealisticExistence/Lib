@@ -4,14 +4,19 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
+
+import net.tpdl.lib.point.Point;
 
 public class Img{
 	private Image img = null;
 	private float x;
 	private float y;
-	
+	private List<Point> points = new ArrayList<Point>();
+	private boolean isMoving;
 	public Img(String path, float x, float y){
 		this.x = x;
 		this.y = y;
@@ -43,7 +48,16 @@ public class Img{
 		
 	}
 
-
+	public Point getNextPoint(){
+		if(points.isEmpty())return null;
+		Point p = points.get(0);
+		points.remove(p);
+		return p;
+	}
+	public void addPoint(Point p){
+		points.add(p);
+	}
+	
 
 	public float getY() {
 		return y;
@@ -74,6 +88,19 @@ public class Img{
 
 	public void setImage(Image image) {
 		this.img = image;
+	}
+
+
+
+
+	public boolean isMoving() {
+		return isMoving;
+	}
+
+
+
+	public void setMoving(boolean isMoving) {
+		this.isMoving = isMoving;
 	}
 	
 }

@@ -1,0 +1,27 @@
+package main;
+
+
+import net.tpdl.lib.content.Content;
+import net.tpdl.lib.frame.Window;
+import net.tpdl.lib.img.Img;
+
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	Window w = new Window();
+	w.enableThis(true);
+	Content c = new Content(w);
+	w.addContent(c);
+	c.drawText("hola", 100, 100);
+	c.moveText("hola", 1000, 1000, 300);
+	c.moveText("hola", 500, 500, 300);
+
+
+	}
+
+}

@@ -1,0 +1,5 @@
+package net.tpdl.lib.point;
+
+public class Point {
+
+}

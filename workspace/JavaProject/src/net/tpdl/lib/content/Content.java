@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import net.tpdl.lib.frame.Window;
 import net.tpdl.lib.img.Img;
+import net.tpdl.lib.point.Point;
 import net.tpdl.lib.text.Text;
 
 
@@ -53,57 +54,66 @@ public class Content extends JPanel{
 
 
 	}
-	*/
+	 */
 	public void moveText(final String s, final int x2, final int y2, final float speed){
 		for(int i = 0; i < strings.size(); i++){
+
 			final Text te = strings.get(i);
 			if(te.getText().equals(s)){
+				Point p = new Point(x2,y2);
+				te.addPoint(p);
 
-				Thread t = new Thread(new Runnable() {
+				if(!te.isMoving()){
+					te.setMoving(true);
+
+					Thread t = new Thread(new Runnable() {
 
 
-					
-					@Override
-					public void run() {
-						
-						double distX = x2-te.getX();
-						double distY = y2-te.getY();
-						double mod = Math.sqrt(distX*distX + distY*distY);
-						
-						distX /= mod;
-						distY /= mod;
-						while(mod > speed){
-							
-							te.setX((float) (te.getX() + distX*speed/100));
-							te.setY((float) (te.getY() + distY*speed/100));
-							
-							try {
-								Thread.sleep(10);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+
+						@Override
+						public void run() {
+							Point nextPoint = te.getNextPoint();
+							while(nextPoint  != null){
+								double distX = nextPoint.x-te.getX();
+								double distY = nextPoint.y-te.getY();
+								double mod = Math.sqrt(distX*distX + distY*distY);
+
+								distX /= mod;
+								distY /= mod;
+								while(mod > speed){
+
+									te.setX((float) (te.getX() + distX*speed/100));
+									te.setY((float) (te.getY() + distY*speed/100));
+
+									try {
+										Thread.sleep(10);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									repaint();
+									double distX2 = nextPoint.x-te.getX();
+									double distY2 = nextPoint.y-te.getY();
+									mod = Math.sqrt(distX2*distX2 + distY2*distY2);
+								}
+								nextPoint = te.getNextPoint();
 							}
-							repaint();
-							double distX2 = x2-te.getX();
-							double distY2 = y2-te.getY();
-							mod = Math.sqrt(distX2*distX2 + distY2*distY2);
+							te.setMoving(false);
 						}
+					});
+					t.start();
 
-
-					}
-				});
-				t.start();
-			
+				}
 			}
-			
-			
+
+
 		}
-		
-		
+
+
 
 
 	}
-	
+
 	public void setFont(Font f){
 		this.f = f;
 	}
@@ -117,8 +127,8 @@ public class Content extends JPanel{
 
 
 
-//////////////Img Methods////////////////////
-	
+	//////////////Img Methods////////////////////
+
 	public void drawImg(Img Img, int x, int y){
 		this.Img = Img;
 		this.Imgx = x;
@@ -131,25 +141,30 @@ public class Content extends JPanel{
 		for(int i = 0; i < Imgs.size(); i++){
 			final Img te = Imgs.get(i);
 			if(te.getImage() == Img.getImage()){
+				final Point p = new Point(x2,y2);
+				te.addPoint(p);
 
+				if(!te.isMoving()){
+					te.setMoving(true);
 				Thread t = new Thread(new Runnable() {
 
 
-					
+
 					@Override
 					public void run() {
-						
-						double distX = x2-te.getX();
-						double distY = y2-te.getY();
+						Point p = te.getNextPoint();
+						while(p != null){
+						double distX = p.x-te.getX();
+						double distY = p.y-te.getY();
 						double mod = Math.sqrt(distX*distX + distY*distY);
-						
+
 						distX /= mod;
 						distY /= mod;
 						while(mod > speed){
-							
+
 							te.setX((float) (te.getX() + distX*speed/100));
 							te.setY((float) (te.getY() + distY*speed/100));
-							
+
 							try {
 								Thread.sleep(10);
 							} catch (InterruptedException e) {
@@ -157,44 +172,47 @@ public class Content extends JPanel{
 								e.printStackTrace();
 							}
 							repaint();
-							double distX2 = x2-te.getX();
-							double distY2 = y2-te.getY();
+							double distX2 = p.x-te.getX();
+							double distY2 = p.y-te.getY();
 							mod = Math.sqrt(distX2*distX2 + distY2*distY2);
 						}
-
-
+						p = te.getNextPoint();
+						}
+						te.setMoving(false);
 					}
-				
+					
+
 				});
 				t.start();
-			
-			
+
+
 			}
-			
+			}
+
 		}
-			
-		}
-			
-			
-		
-		
-		
 
-
-
-
-			
-///////////////////////Key Methods///////////////////
-		
-		
-	
+	}
 
 
 
 
 
 
-///////////////////////Paint////////////////////////
+
+
+
+
+	///////////////////////Key Methods///////////////////
+
+
+
+
+
+
+
+
+
+	///////////////////////Paint////////////////////////
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -212,8 +230,8 @@ public class Content extends JPanel{
 			Img s = Imgs.get(i);
 			s.paint(g);
 		}
-		
-		
+
+
 	}
 
 
