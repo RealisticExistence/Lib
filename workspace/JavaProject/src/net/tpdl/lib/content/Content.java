@@ -271,4 +271,12 @@ public class Content extends JPanel implements KeyListener{
 
 
 
+
+	public void drawText(Text te) {
+		strings.add(te);
+	}
+
+
+
+
 }
