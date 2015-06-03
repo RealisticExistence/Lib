@@ -1,0 +1,60 @@
+package main;
+
+
+import java.awt.Font;
+import java.awt.event.KeyEvent;
+
+import net.tpdl.lib.content.Content;
+import net.tpdl.lib.frame.Window;
+import net.tpdl.lib.img.Img;
+import net.tpdl.lib.text.Text;
+
+
+
+public class Main {
+	private static float cuenta;
+	private static float cuenta30;
+	private static long tiempoanterior;
+
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Window w = new Window();
+		w.enableThis(true);
+		final Content c = new Contenido(w);
+
+		w.addContent(c);
+		final Text te = new Text("0.00",w.getWidth()/2-50,w.getHeight()/2+200);
+		final Text te30secs = new Text("00",w.getWidth()/2-30,w.getHeight()/2+200);
+
+		c.drawText(te);
+		c.drawText(te30secs);
+
+		c.setFont(new Font("MyFont",Font.BOLD,50));
+		
+
+		while(cuenta30 <= 30 && cuenta < 120){
+			long tiempoactual = System.currentTimeMillis();
+			long tiempoTranscurrido;
+			if(tiempoanterior == 0){
+				tiempoTranscurrido = 0;
+			}else{
+				tiempoTranscurrido = tiempoactual - tiempoanterior;
+			}
+			tiempoanterior = tiempoactual;
+
+			cuenta30 += tiempoTranscurrido/1000f;
+			int cuentaz = (int)(cuenta30 * 100.0);
+			
+			te30secs.setText(""+cuentaz/100f);
+			
+
+			c.repaint();
+		}
+
+
+	}
+
+}

@@ -1,0 +1,14 @@
+package main;
+
+import net.tpdl.lib.content.Content;
+import net.tpdl.lib.frame.Window;
+
+public class two extends Content{
+
+	public two(Window w) {
+		
+		super(w);
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,24 @@
+package main;
+
+import java.awt.event.KeyEvent;
+
+import net.tpdl.lib.content.Content;
+import net.tpdl.lib.frame.Window;
+
+public class one extends Content{
+
+	public one(Window w) {
+		
+		super(w);
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_2){
+			Main.newtwo();
+		}
+		super.keyPressed(e);
+	}
+	
+
+}

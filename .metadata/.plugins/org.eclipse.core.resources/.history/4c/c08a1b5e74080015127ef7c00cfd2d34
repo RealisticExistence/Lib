@@ -1,0 +1,7 @@
+package main;
+
+import net.tpdl.lib.content.Content;
+
+public class Contenido extends Content {
+
+}

@@ -12,7 +12,9 @@ public class Window extends JFrame{
 	 *
 	 */
 	private static final long serialVersionUID = 7367449566300032427L;
+	
 	public void enableThis(boolean enabled){
+		setUndecorated(true);
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		if(enabled){
@@ -30,10 +32,14 @@ public class Window extends JFrame{
 
 	public void addContent(Content c){
 		setContentPane(c);
-
+		c.setFocusable(true);
+		c.requestFocus();
 	
 	
 		
+	}
+	public void removeContent(Content c){
+		remove(c);
 	}
 
 }

@@ -1,7 +1,10 @@
 package net.tpdl.lib.img;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +20,13 @@ public class Img{
 	private float y;
 	private List<Point> points = new ArrayList<Point>();
 	private boolean isMoving;
+	private AffineTransform at;
+	private double degrees;
+	private int centrox;
+	private int centroy;
 	public Img(String path, float x, float y){
+		at = AffineTransform.getTranslateInstance(x, y);
+
 		this.x = x;
 		this.y = y;
 		try {
@@ -25,6 +34,18 @@ public class Img{
 		} catch (IOException e) {
 			throw new RuntimeException("Error de lectura: " + path);
 		}
+
+
+
+	}
+	public Img(BufferedImage img, float x, float y){
+		at = AffineTransform.getTranslateInstance(x, y);
+
+		this.x = x;
+		this.y = y;
+
+			this.img = img;
+		
 
 
 
@@ -38,6 +59,7 @@ public class Img{
 
 
 	}
+	
 	public void setWidth(int newWidth){
 		img = img.getScaledInstance(newWidth, img.getHeight(null), Image.SCALE_SMOOTH);
 
@@ -47,13 +69,18 @@ public class Img{
 		
 		
 	}
-
+	
+	public void rotate(float degrees){
+		 this.degrees = degrees;
+	}
+	
 	public Point getNextPoint(){
 		if(points.isEmpty())return null;
 		Point p = points.get(0);
 		points.remove(p);
 		return p;
 	}
+	
 	public void addPoint(Point p){
 		points.add(p);
 	}
@@ -81,7 +108,16 @@ public class Img{
 		this.x = x;
 	}
 	public void paint(Graphics g){
-		g.drawImage(img, (int)x, (int)y, null);
+		at.setToIdentity();
+		
+		at.translate(x+centrox, y+centroy);
+		at.rotate(Math.toRadians(degrees));
+		at.scale(0.7, 0.7);
+		at.translate(-centrox, -centroy);
+		
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.drawImage(img, at, null);
+		
 	}
 
 
@@ -101,6 +137,12 @@ public class Img{
 
 	public void setMoving(boolean isMoving) {
 		this.isMoving = isMoving;
+	}
+	
+	
+	public void setCenter(int x , int y){
+		this.centrox = x;
+		this.centroy = y;
 	}
 	
 }

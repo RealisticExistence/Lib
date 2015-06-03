@@ -1,0 +1,13 @@
+package main;
+
+import net.tpdl.lib.content.Content;
+import net.tpdl.lib.frame.Window;
+
+public class one extends Content{
+
+	public one(Window w) {
+		
+		super(w);
+	}
+
+}

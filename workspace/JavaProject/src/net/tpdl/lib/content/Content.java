@@ -3,8 +3,10 @@ package net.tpdl.lib.content;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -23,6 +25,7 @@ public class Content extends JPanel implements KeyListener{
 	String s = "";
 	ArrayList<Text> strings = new ArrayList<Text>();
 	ArrayList<Img> Imgs = new ArrayList<Img>();
+	AffineTransform at;
 
 	int Imgx = 0;
 	int Imgy = 0;
@@ -133,7 +136,7 @@ public class Content extends JPanel implements KeyListener{
 
 
 	//////////////Img Methods////////////////////
-
+	
 	public void drawImg(Img Img, int x, int y){
 		this.Img = Img;
 		this.Imgx = x;
@@ -218,6 +221,7 @@ public class Content extends JPanel implements KeyListener{
 
 
 	///////////////////////Paint////////////////////////
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -238,6 +242,16 @@ public class Content extends JPanel implements KeyListener{
 
 
 	}
+
+
+
+
+
+	
+
+
+
+	
 
 
 

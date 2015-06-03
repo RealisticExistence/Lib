@@ -1,0 +1,11 @@
+INSTRUCCIONES:
+	1.primero crearemos una ventana: Window w = new Window();
+	2.despues hay que crear una clase de contenidos y extenderle content: public class MiContent extends Content{
+	
+	
+	}
+	3.despues, añadimos el content: Content c = new MiContent(w);
+	4.:w.addContent(c);
+	5.usamos metodos: c.drawImg();,c.drawText();,c....
+
+

@@ -1,0 +1,22 @@
+package main;
+
+import java.awt.event.KeyEvent;
+
+import net.tpdl.lib.content.Content;
+import net.tpdl.lib.frame.Window;
+
+public class two extends Content{
+
+	public two(Window w) {
+		
+		super(w);
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_1){
+			Main.newone();
+		}
+		super.keyPressed(e);
+	}
+}
