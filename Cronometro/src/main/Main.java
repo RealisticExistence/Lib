@@ -42,7 +42,16 @@ public class Main {
 		
 		w.addContent(c);
 		BufferedImage imgMarco= procesar();
-		c.drawImg(new Img(imgMarco,w.getWidth()/2,w.getHeight()/2), 0,0);
+		Img fondo2 = new Img("imgs/wrologo.png",w.getWidth()/2, w.getHeight()/2);
+		fondo2.setHeight(w.getHeight());
+		fondo2.setWidth(w.getWidth());
+		fondo2.setY(w.getHeight()/2);
+		fondo2.setX(w.getWidth()/2);
+		Img fondo = new Img(imgMarco,w.getWidth()/2-380,w.getHeight()/2-525);
+		fondo.setWidth(1200);
+		fondo.setHeight(1200);
+		c.drawImg(fondo2, 0, 0);
+		c.drawImg(fondo, 0,0);
 		
 		te = new Text("0:00.00",w.getWidth()/2-50,w.getHeight()/2+400);
 		te30secs = new Text("00.00",w.getWidth()/2-50,w.getHeight()/2+350);
@@ -58,7 +67,7 @@ public class Main {
 		c.setColor(Color.BLUE);
 		img.setCenter(41, 42);
 		img2.setCenter(41, 69);
-
+		c.setBackground(Color.WHITE);
 
 
 
@@ -66,7 +75,7 @@ public class Main {
 
 	private static BufferedImage procesar() {
 		try {
-			BufferedImage img = ImageIO.read(new File("imgs/Marco.png"));
+			BufferedImage img = ImageIO.read(new File("imgs/LogoTechTalents.png"));
 			
 			int ancho = img.getWidth();
 			int alto = img.getHeight();
