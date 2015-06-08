@@ -2,9 +2,16 @@ package main;
 
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageFilter;
+import java.awt.image.ImageProducer;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 
@@ -34,6 +41,8 @@ public class Main {
 	static Text te30secs;
 	public static boolean working;
 
+	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	public static void main(String[] args) {
 
 		w = new Window();
@@ -41,22 +50,29 @@ public class Main {
 		c = new Contenido(w);
 		
 		w.addContent(c);
-		BufferedImage imgMarco= procesar();
+		BufferedImage imgMarco = procesar();
 		Img fondo2 = new Img("imgs/wrologo.png",w.getWidth()/2, w.getHeight()/2);
-		fondo2.setHeight(w.getHeight());
-		fondo2.setWidth(w.getWidth());
-		fondo2.setY(w.getHeight()/2);
-		fondo2.setX(w.getWidth()/2);
-		Img fondo = new Img(imgMarco,w.getWidth()/2-380,w.getHeight()/2-525);
-		fondo.setWidth(1200);
-		fondo.setHeight(1200);
+		
+		fondo2.setWidth((int)(fondo2.getWidth()*1.4));
+		fondo2.setHeight((int)(fondo2.getHeight()*1.4));
+		fondo2.setY(w.getHeight()/2-fondo2.getHeight()/2);
+		fondo2.setX(w.getWidth()/2-fondo2.getWidth()/2);
+		fondo2.setSx(1);
+		fondo2.setSy(1);
+		Img fondo = new Img(imgMarco,w.getWidth()/2,w.getHeight()/2);
+		fondo.setWidth(1000);
+		fondo.setHeight(1000);
+		fondo.setX(w.getWidth()/2-fondo.getWidth()/2);
+		fondo.setY(w.getHeight()/2-fondo.getHeight()/2);
+		fondo.setSx(1);
+		fondo.setSy(1);
 		c.drawImg(fondo2, 0, 0);
 		c.drawImg(fondo, 0,0);
 		
 		te = new Text("0:00.00",w.getWidth()/2-50,w.getHeight()/2+400);
 		te30secs = new Text("00.00",w.getWidth()/2-50,w.getHeight()/2+350);
-		img2 = new Img("imgs/ManecillaCorta.png",w.getWidth()/2,w.getHeight()/2-175);
-		img = new Img("imgs/ManecillaLarga.png",w.getWidth()/2,w.getHeight()/2-150);
+		img2 = new Img("imgs/ManecillaCorta.png",w.getWidth()/2-40,w.getHeight()/2-63);
+		img = new Img("imgs/ManecillaLarga.png",w.getWidth()/2-40,w.getHeight()/2-38);
 		img.rotate(-90);
 		img2.rotate(-90);
 		c.drawText(te);
@@ -66,7 +82,11 @@ public class Main {
 		c.setFont(new Font("MyFont",Font.BOLD,50));
 		c.setColor(Color.BLUE);
 		img.setCenter(41, 42);
+		img.setSx(0.7);
+		img.setSy(0.7);
 		img2.setCenter(41, 69);
+		img2.setSx(0.7);
+		img2.setSy(0.7);
 		c.setBackground(Color.WHITE);
 
 
@@ -77,19 +97,33 @@ public class Main {
 		try {
 			BufferedImage img = ImageIO.read(new File("imgs/LogoTechTalents.png"));
 			
-			int ancho = img.getWidth();
-			int alto = img.getHeight();
+			
+			BufferedImage resizedImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		    Graphics2D g2d = resizedImage.createGraphics();
+		    g2d.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);
+		    g2d.dispose();
+			
+			
+			int ancho = resizedImage.getWidth();
+			int alto = resizedImage.getHeight();
 			for(int x = 0; x < ancho; x++){
 				for(int y = 0; y < alto; y++){
-					if(img.getRGB(x, y) == Color.WHITE.getRGB()){
-						img.setRGB(x, y, Color.TRANSLUCENT);
+					int co = resizedImage.getRGB(x, y);
+					Color color = new Color(co);
+					float r = color.getRed()/255f;
+					float g = color.getGreen()/255f;
+					float b = color.getBlue()/255f;
+					Color c = new Color(r,g,b,0.5f);
+					if(r >0){
+						resizedImage.setRGB(x, y, c.getRGB());
 					}
+					
 				}
 			}
 			
 			
 			
-			return img;
+			return resizedImage;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -129,21 +163,21 @@ public class Main {
 					int cuentaz = (int)(cuenta30 * 100.0);
 
 					te30secs.setText(""+cuentaz/100f);
-					te.setText("0:"+cuentax/100f);
+					
 
 					img2.rotate(cuenta*3-90);
 					img.rotate(cuenta30*12-90);
-					if(cuentax == 60.0){
-						cuentax = 0;
-						te.setText("1:"+cuentax/100f);
-
-
+					
+					if(cuentax/100 >= 60.0){
+						te.setText("01:"+((cuentax-6000)/100f));
+					}else{
+						te.setText("00:"+cuentax/100f);
 					}
 					if(cuentaz/100f == 30.0){
 						c.setColor(Color.RED);
 
 					}
-					if(cuentax/100f == 120.0){
+					if(cuentax/100f >= 120.0){
 						te30secs.setText("");
 						te.setText("Tiempo Finalizado");
 					}

@@ -24,6 +24,8 @@ public class Img{
 	private double degrees;
 	private int centrox;
 	private int centroy;
+	private double sx;
+	private double sy;
 	public Img(String path, float x, float y){
 		at = AffineTransform.getTranslateInstance(x, y);
 
@@ -45,7 +47,6 @@ public class Img{
 		this.y = y;
 
 			this.img = img;
-		
 
 
 
@@ -62,6 +63,17 @@ public class Img{
 	
 	public void setWidth(int newWidth){
 		img = img.getScaledInstance(newWidth, img.getHeight(null), Image.SCALE_SMOOTH);
+
+	}
+	public int getHeight(){
+		return img.getHeight(null);
+		
+
+
+	}
+	
+	public int getWidth(){
+		return img.getWidth(null);
 
 	}
 	public Image getImage(){
@@ -107,12 +119,13 @@ public class Img{
 	public void setX(float x) {
 		this.x = x;
 	}
+	
 	public void paint(Graphics g){
 		at.setToIdentity();
 		
 		at.translate(x+centrox, y+centroy);
 		at.rotate(Math.toRadians(degrees));
-		at.scale(0.7, 0.7);
+		at.scale(sx, sy);
 		at.translate(-centrox, -centroy);
 		
 		Graphics2D g2d = (Graphics2D) g;
@@ -143,6 +156,18 @@ public class Img{
 	public void setCenter(int x , int y){
 		this.centrox = x;
 		this.centroy = y;
+	}
+	public double getSx() {
+		return sx;
+	}
+	public void setSx(double sx) {
+		this.sx = sx;
+	}
+	public double getSy() {
+		return sy;
+	}
+	public void setSy(double sy) {
+		this.sy = sy;
 	}
 	
 }
